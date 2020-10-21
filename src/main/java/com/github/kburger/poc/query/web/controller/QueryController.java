@@ -29,6 +29,7 @@ import org.eclipse.rdf4j.federated.FedXFactory;
 import org.eclipse.rdf4j.query.resultio.sparqljson.SPARQLResultsJSONWriter;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.util.Repositories;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +38,9 @@ import com.github.kburger.poc.query.model.QueryRequest;
 
 @RestController
 @RequestMapping("${poc.query.endpoint:/}")
+@CrossOrigin
 public class QueryController {
-    @PostMapping
+    @PostMapping(produces = "application/sparql-results+json")
     public void executeQuery(@RequestBody QueryRequest request, HttpServletResponse response) throws IOException {
         final Repository repository;
         try {
